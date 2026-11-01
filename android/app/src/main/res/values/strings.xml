@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">EdoDoc</string>
+    <string name="canale_messaggi">Messaggi</string>
+    <string name="canale_feedback">Feedback al check</string>
+</resources>

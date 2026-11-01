@@ -1,0 +1,457 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		E0D0000000000000000000A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E0D000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E0D000000000000000000010;
+			remoteInfo = EdoDoc;
+		};
+		E0D0000000000000000000A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E0D000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E0D000000000000000000010;
+			remoteInfo = EdoDoc;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E0D000000000000000000020 /* EdoDoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EdoDoc.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0D000000000000000000021 /* EdoDocTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EdoDocTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0D000000000000000000022 /* EdoDocUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EdoDocUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		E0D000000000000000000030 /* EdoDoc */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = EdoDoc;
+			sourceTree = "<group>";
+		};
+		E0D000000000000000000031 /* EdoDocTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = EdoDocTests;
+			sourceTree = "<group>";
+		};
+		E0D000000000000000000032 /* EdoDocUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = EdoDocUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E0D000000000000000000040 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0D000000000000000000041 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0D000000000000000000042 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E0D000000000000000000002 = {
+			isa = PBXGroup;
+			children = (
+				E0D000000000000000000030 /* EdoDoc */,
+				E0D000000000000000000031 /* EdoDocTests */,
+				E0D000000000000000000032 /* EdoDocUITests */,
+				E0D000000000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E0D000000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E0D000000000000000000020 /* EdoDoc.app */,
+				E0D000000000000000000021 /* EdoDocTests.xctest */,
+				E0D000000000000000000022 /* EdoDocUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E0D000000000000000000010 /* EdoDoc */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0D000000000000000000060 /* Build configuration list for PBXNativeTarget "EdoDoc" */;
+			buildPhases = (
+				E0D000000000000000000050 /* Sources */,
+				E0D000000000000000000040 /* Frameworks */,
+				E0D000000000000000000053 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				E0D000000000000000000030 /* EdoDoc */,
+			);
+			name = EdoDoc;
+			productName = EdoDoc;
+			productReference = E0D000000000000000000020 /* EdoDoc.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E0D000000000000000000011 /* EdoDocTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0D000000000000000000061 /* Build configuration list for PBXNativeTarget "EdoDocTests" */;
+			buildPhases = (
+				E0D000000000000000000051 /* Sources */,
+				E0D000000000000000000041 /* Frameworks */,
+				E0D000000000000000000054 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E0D0000000000000000000B1 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				E0D000000000000000000031 /* EdoDocTests */,
+			);
+			name = EdoDocTests;
+			productName = EdoDocTests;
+			productReference = E0D000000000000000000021 /* EdoDocTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E0D000000000000000000012 /* EdoDocUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0D000000000000000000062 /* Build configuration list for PBXNativeTarget "EdoDocUITests" */;
+			buildPhases = (
+				E0D000000000000000000052 /* Sources */,
+				E0D000000000000000000042 /* Frameworks */,
+				E0D000000000000000000055 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E0D0000000000000000000B2 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				E0D000000000000000000032 /* EdoDocUITests */,
+			);
+			name = EdoDocUITests;
+			productName = EdoDocUITests;
+			productReference = E0D000000000000000000022 /* EdoDocUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E0D000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					E0D000000000000000000010 = {
+						CreatedOnToolsVersion = 26.0;
+					};
+					E0D000000000000000000011 = {
+						CreatedOnToolsVersion = 26.0;
+						TestTargetID = E0D000000000000000000010;
+					};
+					E0D000000000000000000012 = {
+						CreatedOnToolsVersion = 26.0;
+						TestTargetID = E0D000000000000000000010;
+					};
+				};
+			};
+			buildConfigurationList = E0D000000000000000000063 /* Build configuration list for PBXProject "EdoDoc" */;
+			developmentRegion = it;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				it,
+				Base,
+			);
+			mainGroup = E0D000000000000000000002;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = E0D000000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E0D000000000000000000010 /* EdoDoc */,
+				E0D000000000000000000011 /* EdoDocTests */,
+				E0D000000000000000000012 /* EdoDocUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E0D000000000000000000053 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0D000000000000000000054 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0D000000000000000000055 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E0D000000000000000000050 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0D000000000000000000051 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0D000000000000000000052 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E0D0000000000000000000B1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E0D000000000000000000010 /* EdoDoc */;
+			targetProxy = E0D0000000000000000000A1 /* PBXContainerItemProxy */;
+		};
+		E0D0000000000000000000B2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E0D000000000000000000010 /* EdoDoc */;
+			targetProxy = E0D0000000000000000000A2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E0D000000000000000000070 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		E0D000000000000000000071 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E0D000000000000000000072 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				API_BASE_URL = "http://localhost:8081/api";
+				APS_ENVIRONMENT = development;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Config/EdoDoc.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Config/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = it.edodoc.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E0D000000000000000000073 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				API_BASE_URL = "https://SOSTITUIRE-URL-PRODUZIONE.invalid/api";
+				APS_ENVIRONMENT = production;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Config/EdoDoc.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Config/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = it.edodoc.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		E0D000000000000000000074 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = it.edodoc.app.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EdoDoc.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EdoDoc";
+			};
+			name = Debug;
+		};
+		E0D000000000000000000075 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = it.edodoc.app.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EdoDoc.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EdoDoc";
+			};
+			name = Release;
+		};
+		E0D000000000000000000076 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = it.edodoc.app.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = EdoDoc;
+			};
+			name = Debug;
+		};
+		E0D000000000000000000077 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = it.edodoc.app.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = EdoDoc;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E0D000000000000000000060 /* Build configuration list for PBXNativeTarget "EdoDoc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0D000000000000000000072 /* Debug */,
+				E0D000000000000000000073 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0D000000000000000000061 /* Build configuration list for PBXNativeTarget "EdoDocTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0D000000000000000000074 /* Debug */,
+				E0D000000000000000000075 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0D000000000000000000062 /* Build configuration list for PBXNativeTarget "EdoDocUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0D000000000000000000076 /* Debug */,
+				E0D000000000000000000077 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0D000000000000000000063 /* Build configuration list for PBXProject "EdoDoc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0D000000000000000000070 /* Debug */,
+				E0D000000000000000000071 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E0D000000000000000000001 /* Project object */;
+}
