@@ -61,16 +61,22 @@ struct EdoDocApp: App {
 
 struct RadiceView: View {
     @Environment(AppModel.self) private var modello
+    @Environment(\.scenePhase) private var fase
 
     var body: some View {
         ZStack(alignment: .top) {
-            switch modello.stato {
-            case .anonimo:
-                AccessoView().transition(.opacity)
-            case .paziente:
-                PazienteShell().transition(.opacity)
-            case .dottore:
-                DottoreShell().transition(.opacity)
+            // Al posto dell'app, non sopra: così si chiudono anche i fogli aperti
+            if let aggiornamento = modello.aggiornamento {
+                AggiornamentoView(aggiornamento: aggiornamento).transition(.opacity)
+            } else {
+                switch modello.stato {
+                case .anonimo:
+                    AccessoView().transition(.opacity)
+                case .paziente:
+                    PazienteShell().transition(.opacity)
+                case .dottore:
+                    DottoreShell().transition(.opacity)
+                }
             }
             if let avviso = modello.avviso {
                 AvvisoView(testo: avviso)
@@ -80,5 +86,9 @@ struct RadiceView: View {
             }
         }
         .animation(.smooth(duration: 0.45), value: modello.stato)
+        .animation(.smooth(duration: 0.45), value: modello.aggiornamento)
+        .task(id: fase) {
+            if fase == .active { await modello.controllaAggiornamento() }
+        }
     }
 }

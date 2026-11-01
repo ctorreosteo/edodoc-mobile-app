@@ -42,13 +42,16 @@ val JsonEdo = Json {
 }
 
 class ApiClient(
-    private val baseUrl: String,
+    baseUrl: String,
     private val store: SessionStore,
     val http: OkHttpClient = OkHttpClient.Builder()
         .connectTimeout(15, TimeUnit.SECONDS)
         .readTimeout(60, TimeUnit.SECONDS)
         .build(),
 ) {
+    @Volatile
+    var baseUrl: String = baseUrl
+
     private val _sessione = MutableStateFlow(store.carica())
     val sessione: StateFlow<Sessione?> = _sessione
 

@@ -21,13 +21,15 @@ In debug l'app parla con `http://10.0.2.2:8081/api`, cioè il `localhost` del Ma
 
 ## Rilascio
 
-L'URL di produzione non ha un valore predefinito valido: si passa alla build.
+L'URL di produzione predefinito è quello tecnico di Cloud Run. Per usarne un altro si passa alla build.
 
 ```bash
 ./gradlew :app:bundleRelease -PEDODOC_API_URL=https://dominio/api
 ```
 
 La firma del rilascio non è configurata: va aggiunta quando esiste il keystore di Google Play.
+
+Ogni rilascio è obbligatorio: all'avvio e al ritorno in primo piano `core/aggiornamento` chiede a Google Play se c'è una versione nuova e, se c'è, l'app si chiude dietro la schermata di aggiornamento. Basta aumentare `versionCode`. Il controllo funziona solo su un'app installata da Play: per provarlo si usa la condivisione interna delle app. Con un rilascio graduale il blocco arriva solo a chi rientra nella percentuale. Se Play non risponde l'app resta usabile.
 
 ## Notifiche
 

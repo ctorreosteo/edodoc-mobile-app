@@ -4,12 +4,31 @@ import UIKit
 import UserNotifications
 
 enum Configurazione {
+    /// Gli account per Apple e Google vivono sul server demo, che contiene solo dati inventati.
+    private static let accountProva: Set<String> = ["prova.dottore@edodoc.it", "prova.paziente@edodoc.it"]
+    private static let chiaveAmbienteProva = "edodoc.ambienteProva"
+
+    static func isAccountProva(_ email: String) -> Bool {
+        accountProva.contains(email.trimmingCharacters(in: .whitespaces).lowercased())
+    }
+
+    static var ambienteProva: Bool {
+        get { UserDefaults.standard.bool(forKey: chiaveAmbienteProva) }
+        set { UserDefaults.standard.set(newValue, forKey: chiaveAmbienteProva) }
+    }
+
+    private static var demoURL: URL? {
+        let valore = Bundle.main.object(forInfoDictionaryKey: "EDODOC_API_DEMO_URL") as? String
+        return valore.flatMap { $0.isEmpty ? nil : URL(string: $0) }
+    }
+
     static var baseURL: URL {
         #if DEBUG
         if let sostituito = UserDefaults.standard.string(forKey: "edodoc.api"), let url = URL(string: sostituito) {
             return url
         }
         #endif
+        if ambienteProva, let demoURL { return demoURL }
         let valore = Bundle.main.object(forInfoDictionaryKey: "EDODOC_API_BASE_URL") as? String
         return URL(string: valore ?? "")!
     }
@@ -60,6 +79,7 @@ final class AppModel {
     var invitoInSospeso: String?
     var destinazione: Destinazione?
     var avviso: String?
+    private(set) var aggiornamento: Aggiornamento?
     private(set) var pushToken: String?
 
     @ObservationIgnored let archivio: ArchivioSessione
@@ -68,9 +88,7 @@ final class AppModel {
 
     init(archivio: ArchivioSessione = ArchivioKeychain()) {
         self.archivio = archivio
-        api = APIClient(base: Configurazione.baseURL, archivio: archivio) { [weak self] in
-            await self?.sessioneTerminata()
-        }
+        api = creaClient()
         #if DEBUG
         if ProcessInfo.processInfo.arguments.contains("-edodoc.azzera") { archivio.svuota() }
         #endif
@@ -88,8 +106,21 @@ final class AppModel {
 
     // MARK: Accesso
 
+    private func creaClient() -> APIClient {
+        APIClient(base: Configurazione.baseURL, archivio: archivio) { [weak self] in
+            await self?.sessioneTerminata()
+        }
+    }
+
+    private func scegliAmbiente(prova: Bool) {
+        guard Configurazione.ambienteProva != prova else { return }
+        Configurazione.ambienteProva = prova
+        api = creaClient()
+    }
+
     func accedi(email: String, password: String) async throws {
         struct Login: Encodable { let username, password: String; let mobile: Bool }
+        scegliAmbiente(prova: Configurazione.isAccountProva(email))
         let sessione: Sessione = try await api.pubblico("/auth/login", Login(
             username: email.trimmingCharacters(in: .whitespaces), password: password, mobile: true))
         await api.apri(sessione)
@@ -98,6 +129,7 @@ final class AppModel {
 
     func impostaPassword(token: String, password: String) async throws {
         struct Imposta: Encodable { let token, password: String }
+        scegliAmbiente(prova: false)
         let sessione: Sessione = try await api.pubblico("/auth/app/imposta-password", Imposta(token: token, password: password))
         await api.apri(sessione)
         invitoInSospeso = nil
@@ -152,6 +184,22 @@ final class AppModel {
         Task {
             let _: Vuoto? = try? await api.post("/auth/dispositivi", Dispositivo(pushToken: esadecimale, piattaforma: "IOS"))
         }
+    }
+
+    // MARK: Aggiornamento
+
+    /// All'avvio e a ogni ritorno in primo piano. Una volta trovato il blocco non si toglie: basterebbe andare offline.
+    func controllaAggiornamento() async {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("-edodoc.aggiornamento") {
+            aggiornamento = Aggiornamento(versione: "9.9", url: URL(string: "https://apps.apple.com")!)
+        }
+        #else
+        guard aggiornamento == nil, let bundle = Bundle.main.bundleIdentifier,
+              let installata = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String else { return }
+        aggiornamento = await ControlloAggiornamento().cerca(
+            bundle: bundle, installata: installata, sistema: UIDevice.current.systemVersion)
+        #endif
     }
 
     // MARK: Link

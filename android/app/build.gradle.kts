@@ -10,9 +10,12 @@ if (file("google-services.json").exists()) {
     apply(plugin = "com.google.gms.google-services")
 }
 
-// URL di produzione ancora da definire: passalo con -PEDODOC_API_URL=https://.../api
+// URL tecnico di Cloud Run finché non esiste un dominio; si sovrascrive con -PEDODOC_API_URL=https://.../api
 val apiProduzione = providers.gradleProperty("EDODOC_API_URL")
-    .getOrElse("https://INSERIRE-DOMINIO-PRODUZIONE.invalid/api")
+    .getOrElse("https://edodoc-backend-4cmkg7zsaq-oc.a.run.app/api")
+
+// Server demo per gli account di revisione di Apple e Google: -PEDODOC_API_DEMO_URL=https://.../api
+val apiDemo = providers.gradleProperty("EDODOC_API_DEMO_URL").getOrElse("")
 
 android {
     namespace = "it.edodoc.app"
@@ -30,10 +33,12 @@ android {
     buildTypes {
         debug {
             buildConfigField("String", "API_BASE_URL", "\"http://10.0.2.2:8081/api\"")
+            buildConfigField("String", "API_DEMO_URL", "\"\"")
             manifestPlaceholders["networkConfig"] = "@xml/network_debug"
         }
         release {
             buildConfigField("String", "API_BASE_URL", "\"$apiProduzione\"")
+            buildConfigField("String", "API_DEMO_URL", "\"$apiDemo\"")
             manifestPlaceholders["networkConfig"] = "@xml/network_release"
             isMinifyEnabled = true
             isShrinkResources = true
@@ -83,6 +88,7 @@ dependencies {
     implementation(libs.coroutines.play)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.messaging)
+    implementation(libs.play.app.update)
     debugImplementation(libs.compose.tooling)
 
     testImplementation(libs.junit)

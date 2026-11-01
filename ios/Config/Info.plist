@@ -33,6 +33,8 @@
 	</array>
 	<key>EDODOC_API_BASE_URL</key>
 	<string>$(API_BASE_URL)</string>
+	<key>EDODOC_API_DEMO_URL</key>
+	<string>$(API_DEMO_URL)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>

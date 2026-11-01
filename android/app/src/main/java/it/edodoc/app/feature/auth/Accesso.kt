@@ -30,6 +30,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import it.edodoc.app.Ambiente
 import it.edodoc.app.Grafo
 import it.edodoc.app.core.net.ApiException
 import it.edodoc.app.ui.kit.AzioneBrace
@@ -82,6 +83,7 @@ private fun Entra(onPrimo: () -> Unit) {
         errore = null
         esegui {
             try {
+                Grafo.scegliAmbiente(Ambiente.isAccountProva(email))
                 Grafo.api.apri(Grafo.edo.login(email, password))
             } catch (e: ApiException) {
                 errore = e.message
@@ -131,6 +133,7 @@ private fun PrimoAccesso(invito: MutableState<String?>, onIndietro: () -> Unit) 
             errore = null
             esegui {
                 try {
+                    Grafo.scegliAmbiente(false)
                     val sessione = Grafo.edo.impostaPassword(t, password)
                     invito.value = null
                     Grafo.api.apri(sessione)
