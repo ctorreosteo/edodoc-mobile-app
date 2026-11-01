@@ -35,6 +35,7 @@ class Api(private val c: ApiClient) {
     suspend fun cambiaPassword(attuale: String, nuova: String) { c.post("/auth/cambia-password", json(CambiaPassword(attuale, nuova), CambiaPassword.serializer()), NIENTE) }
 
     // Paziente
+    suspend fun chiudiAccount() = fatto("/app/account/chiudi")
     suspend fun riepilogo(): RiepilogoApp = g("/app/riepilogo")
     suspend fun checkCorrente(): StatoCheck = g("/app/check/corrente")
     suspend fun storicoCheck(): List<CheckDettaglio> = gl("/app/check")

@@ -145,6 +145,14 @@ final class AppModel {
         stato = .anonimo
     }
 
+    func eliminaAccount() async throws {
+        let _: Vuoto = try await api.post("/app/account/chiudi")
+        // Il backend ha già chiuso sessioni e dispositivi di questo telefono
+        await api.chiudi()
+        stato = .anonimo
+        mostra("Account eliminato. Riceverai una conferma via email.")
+    }
+
     func cambiaPassword(attuale: String, nuova: String) async throws {
         struct Cambia: Encodable { let attuale, nuova: String }
         let _: Vuoto = try await api.post("/auth/cambia-password", Cambia(attuale: attuale, nuova: nuova))

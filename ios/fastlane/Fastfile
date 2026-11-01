@@ -1,0 +1,126 @@
+default_platform(:ios)
+
+PROGETTO = "EdoDoc.xcodeproj"
+SCHEMA = "EdoDoc"
+TEAM = "D554FGYBR8"
+
+def variabile(nome)
+  valore = ENV[nome].to_s
+  UI.user_error!("Manca #{nome}: vedi fastlane/.env.example") if valore.empty?
+  valore
+end
+
+platform :ios do
+  private_lane :accedi do
+    app_store_connect_api_key(
+      key_id: variabile("APP_STORE_CONNECT_KEY_ID"),
+      issuer_id: variabile("APP_STORE_CONNECT_ISSUER_ID"),
+      key_filepath: variabile("APP_STORE_CONNECT_KEY_PATH")
+    )
+  end
+
+  # Firma automatica di Xcode con la chiave API: non servono certificati salvati nel repo né sul Mac
+  private_lane :compila do |options|
+    versione = options[:versione] || get_version_number(xcodeproj: PROGETTO, target: SCHEMA, configuration: "Release")
+    numero = latest_testflight_build_number(initial_build_number: 0) + 1
+    firma = [
+      "-allowProvisioningUpdates",
+      "-authenticationKeyPath", variabile("APP_STORE_CONNECT_KEY_PATH"),
+      "-authenticationKeyID", variabile("APP_STORE_CONNECT_KEY_ID"),
+      "-authenticationKeyIssuerID", variabile("APP_STORE_CONNECT_ISSUER_ID")
+    ].shelljoin
+    impostazioni = ["MARKETING_VERSION=#{versione}", "CURRENT_PROJECT_VERSION=#{numero}"]
+
+    build_app(
+      project: PROGETTO,
+      scheme: SCHEMA,
+      configuration: "Release",
+      clean: true,
+      output_directory: "build",
+      output_name: "EdoDoc.ipa",
+      export_method: "app-store",
+      export_team_id: TEAM,
+      export_options: { signingStyle: "automatic" },
+      xcargs: "#{firma} #{impostazioni.shelljoin}",
+      export_xcargs: firma
+    )
+    versione
+  end
+
+  desc "Una sola volta: crea identificatore con Push e scheda su App Store Connect, chiede login Apple e 2FA"
+  lane :crea_app do
+    create_app_online(
+      username: variabile("APPLE_ID"),
+      app_name: "Dr. Edoardo Bo",
+      app_version: "1.0.0",
+      sku: "edodoc-ios",
+      language: "Italian",
+      enable_services: { push_notification: "on" }
+    )
+  end
+
+  desc "Test unitari"
+  lane :test do
+    run_tests(
+      project: PROGETTO,
+      scheme: SCHEMA,
+      device: "iPhone 17 Pro",
+      only_testing: ["EdoDocTests"],
+      xcargs: "CODE_SIGNING_ALLOWED=NO"
+    )
+  end
+
+  desc "Compila e carica su TestFlight. Opzione versione:1.2.3"
+  lane :beta do |options|
+    accedi
+    compila(versione: options[:versione])
+    upload_to_testflight(skip_waiting_for_build_processing: true)
+  end
+
+  desc "Pubblica le risposte privacy, chiede login Apple e 2FA"
+  lane :privacy do
+    upload_app_privacy_details_to_app_store(
+      username: variabile("APPLE_ID"),
+      json_path: "fastlane/app_privacy_details.json",
+      skip_json_file_saving: true
+    )
+  end
+
+  desc "Aggiorna testi e screenshot senza compilare e senza inviare in revisione"
+  lane :scheda do
+    accedi
+    upload_to_app_store(
+      skip_binary_upload: true,
+      overwrite_screenshots: true,
+      app_rating_config_path: "fastlane/eta.json",
+      run_precheck_before_submit: false,
+      force: true
+    )
+  end
+
+  desc "Compila, carica e invia in revisione. Dopo l'approvazione si pubblica a mano. Opzione versione:1.2.3"
+  lane :rilascio do |options|
+    accedi
+    versione = compila(versione: options[:versione])
+    note = File.read("note_revisione.txt") % { password_dottore: variabile("APP_REVIEW_PASSWORD_DOTTORE") }
+    upload_to_app_store(
+      app_version: versione,
+      overwrite_screenshots: true,
+      app_rating_config_path: "fastlane/eta.json",
+      app_review_information: {
+        first_name: variabile("APP_REVIEW_NOME"),
+        last_name: variabile("APP_REVIEW_COGNOME"),
+        phone_number: variabile("APP_REVIEW_TELEFONO"),
+        email_address: variabile("APP_REVIEW_EMAIL"),
+        demo_user: "prova.paziente@edodoc.it",
+        demo_password: variabile("APP_REVIEW_PASSWORD_PAZIENTE"),
+        notes: note
+      },
+      submission_information: { add_id_info_uses_idfa: false },
+      precheck_include_in_app_purchases: false,
+      submit_for_review: true,
+      automatic_release: false,
+      force: true
+    )
+  end
+end

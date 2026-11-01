@@ -16,3 +16,14 @@ node_modules/
 
 # Screenshot dei collaudi
 docs/screenshots/
+
+# Rilascio iOS
+*.p8
+*.ipa
+*.dSYM.zip
+ios/.bundle/
+ios/vendor/
+ios/build/
+ios/fastlane/report.xml
+ios/fastlane/README.md
+ios/fastlane/test_output/

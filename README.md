@@ -19,15 +19,10 @@ Avvia il backend con `./dev.sh` in `edodoc-hq`.
 
 ## Prima della pubblicazione
 
-- iOS: imposta il Team Apple e abilita le Push su `it.edodoc.app`.
+- iOS: segui la sezione Rilascio di [ios/README.md](ios/README.md).
 - Android: configura il keystore e aggiungi `app/google-services.json`.
 - Backend: imposta le variabili `APNS_*` e `FCM_CREDENTIALS_PATH`.
 
 ## Account per la revisione di Apple e Google
 
-`prova.dottore@edodoc.it` e `prova.paziente@edodoc.it` vivono su un server demo con soli dati inventati: la procedura è nel README di `edodoc-hq`. Le app riconoscono questi due indirizzi al login e parlano con il server demo.
-
-- iOS: imposta `API_DEMO_URL` nella configurazione Release.
-- Android: compila con `-PEDODOC_API_DEMO_URL=https://.../api`.
-
-Senza questo URL gli account di prova non funzionano nell'app pubblicata. Nelle note per la revisione indica che i due account usano un ambiente dimostrativo.
+`prova.dottore@edodoc.it` e `prova.paziente@edodoc.it` sono gli account per la revisione. Non esiste un server demo: senza `API_DEMO_URL` le app usano l'URL di produzione anche per questi due indirizzi.

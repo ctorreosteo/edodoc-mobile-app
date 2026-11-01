@@ -1,0 +1,14 @@
+Dr. Edoardo Bo is the private companion app for the clients of Edoardo Bo, a nutrition biologist based in Italy. Accounts are created by invitation only, after a client starts a program, so there is no public sign-up.
+
+The two accounts below are dedicated to App Review.
+
+Client role: use the account in the fields above. It is an invented client who sees only her own data. It shows the home screen, weekly check, chat and program. It has no visits or invoices, so those sections are empty.
+
+Doctor role:
+User: prova.dottore@edodoc.it
+Password: %{password_dottore}
+The doctor area is reserved for Dr. Bo and contains real clients' health data. To protect it, this review account opens the doctor area but the server refuses all of its data, so these screens show an error message. This is intentional and no client data is shown.
+
+Account deletion: Profile > Elimina account, then confirm. Access ends immediately and the account can no longer sign in. Personal data is anonymized within one month and the user gets an email confirmation. Invoices must be kept by law for 10 years and the app says so before confirming. The demo client account is restored every hour so that the next reviewer can sign in.
+
+The app has no in-app purchases and sells nothing. Fees for the professional program are agreed and paid outside the app.

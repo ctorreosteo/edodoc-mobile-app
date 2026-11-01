@@ -142,7 +142,7 @@ final class PercorsiTests: XCTestCase {
             conferma.tap()
             conferma.typeText(password)
             scatta("30-primo-accesso")
-            app.buttons["Entra in EdoDoc"].tap()
+            app.buttons["Entra nell'app"].tap()
         } else {
             accedi(email, password)
         }

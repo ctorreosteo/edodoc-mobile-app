@@ -232,6 +232,7 @@ struct ProfiloView: View {
     @Environment(AppModel.self) private var app
     @State private var cambio = false
     @State private var conferma = false
+    @State private var eliminazione = false
 
     var body: some View {
         ScrollView {
@@ -249,7 +250,14 @@ struct ProfiloView: View {
                     .padding(.bottom, 12)
                 Button("Esci") { conferma = true }
                     .buttonStyle(BottoneVetro())
+                    .padding(.bottom, 12)
                     .accessibilityIdentifier("profilo.esci")
+                Link("Privacy", destination: Legale.privacy)
+                    .buttonStyle(BottoneVetro())
+                    .padding(.bottom, 12)
+                Button("Elimina account") { eliminazione = true }
+                    .buttonStyle(BottoneVetro())
+                    .accessibilityIdentifier("profilo.elimina")
                 Text("Montserrat © The Montserrat Project Authors, licenza SIL Open Font 1.1.")
                     .font(Tipografia.nota)
                     .foregroundStyle(Tema.inkTerziario)
@@ -263,6 +271,14 @@ struct ProfiloView: View {
         .sheet(isPresented: $cambio) { CambioPasswordView() }
         .confirmationDialog("Vuoi uscire dall'app?", isPresented: $conferma, titleVisibility: .visible) {
             Button("Esci", role: .destructive) { Task { await app.esci() } }
+        }
+        .alert("Vuoi eliminare l'account?", isPresented: $eliminazione) {
+            Button("Elimina account", role: .destructive) {
+                Task { await app.esegui { try await app.eliminaAccount() } }
+            }
+            Button("Annulla", role: .cancel) {}
+        } message: {
+            Text("Perderai subito l'accesso all'app e alle fatture: scaricale prima, se ti servono. Entro un mese i tuoi dati anagrafici saranno resi anonimi. Le fatture restano conservate per 10 anni, come richiede la legge.")
         }
     }
 }

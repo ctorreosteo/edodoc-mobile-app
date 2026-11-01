@@ -25,6 +25,10 @@ Bundle id / application id: `it.edodoc.app`. Schema deep link: `edodoc://`.
 
 `percorso` è quello in corso, oppure il più recente, oppure `null`. `visite` contiene tutte le visite del paziente, anche quelle fuori percorso, in ordine di data. I valori di `tipo` e `stato` sono quelli degli enum Java. Mai note del dottore né dati di sincronizzazione Google.
 
+## Eliminazione dell'account
+
+`POST /api/app/account/chiudi`, senza corpo: solo paziente. Archivia il paziente e chiude subito accesso, sessioni e dispositivi. Dopo la risposta l'app torna al login. L'anonimizzazione la conferma il dottore dal gestionale entro un mese.
+
 ## Feedback al check
 
 Canali: testo, vocale, email. L'ultimo feedback salvato sostituisce il precedente, compreso l'eventuale vocale.

@@ -35,9 +35,39 @@ Il Keychain del simulatore funziona solo con l'app firmata. `testSessioneRiprist
 ## Prima di pubblicare
 
 1. Controlla `API_BASE_URL` della configurazione Release nel progetto: ora vale l'URL tecnico di Cloud Run `https://edodoc-backend-4cmkg7zsaq-oc.a.run.app/api`, da sostituire se nasce un dominio dedicato.
-2. Scegli il Team in Signing & Capabilities: serve un account Apple Developer a pagamento.
-3. Crea su developer.apple.com l'identificatore `it.edodoc.app` con Push Notifications.
-4. Crea una chiave APNs (`.p8`) e passala al backend con le variabili `APNS_*` di `env.example`.
+2. Crea una chiave APNs (`.p8`) e passala al backend con le variabili `APNS_*` di `env.example`. `APNS_TEAM_ID` è `D554FGYBR8`.
+
+## Rilascio
+
+Serve Ruby 4 (`export PATH="/opt/homebrew/opt/ruby/bin:$PATH"`). Le credenziali stanno in `fastlane/.env`, fuori da git: parti da [fastlane/.env.example](fastlane/.env.example). La chiave `.p8` di App Store Connect ha ruolo Admin e sta fuori dal repo.
+
+```bash
+cd ios
+bundle install
+```
+
+La prima volta, in quest'ordine:
+
+```bash
+bundle exec fastlane crea_app    # identificatore e scheda: login Apple con 2FA
+bundle exec fastlane beta        # build su TestFlight
+bundle exec fastlane privacy     # risposte privacy: login Apple con 2FA
+bundle exec fastlane rilascio    # build, scheda e invio in revisione
+```
+
+Dopo l'approvazione la pubblicazione si conferma a mano su App Store Connect: ogni versione blocca chi non aggiorna, quindi il momento lo scegli tu.
+
+| Comando | Cosa fa |
+|---|---|
+| `fastlane beta versione:1.2.3` | Carica su TestFlight |
+| `fastlane scheda` | Aggiorna testi, screenshot ed età, senza build |
+| `fastlane rilascio versione:1.2.3` | Invia in revisione |
+
+Il numero di build lo decide TestFlight, sempre l'ultimo più uno. Scheda store in `fastlane/metadata`, screenshot in `fastlane/screenshots/it` (1320×2868), risposte privacy in `fastlane/app_privacy_details.json`, questionario età in `fastlane/eta.json`. Dalla versione dopo la prima aggiungi `fastlane/metadata/it/release_notes.txt`.
+
+Con GitHub Actions il tag `ios-v1.2.3` carica su TestFlight, mentre l'invio in revisione parte a mano dal workflow [iOS](../.github/workflows/ios.yml). I secret hanno gli stessi nomi di `.env`, tranne la chiave: `APP_STORE_CONNECT_KEY_BASE64` è il `.p8` in base64.
+
+Le pagine di privacy, supporto ed eliminazione account sono in `public/app/` di `edodoc-sito-web`, fuori da menu e sitemap.
 
 `aps-environment` vale `development` in Debug e `production` in Release. Il backend deve usare l'ambiente corrispondente: scambiarli fa rifiutare i token.
 

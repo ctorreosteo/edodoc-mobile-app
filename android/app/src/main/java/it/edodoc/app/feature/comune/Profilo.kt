@@ -39,6 +39,7 @@ fun ProfiloSchermo(utente: Utente, onIndietro: () -> Unit) {
     var password by rememberSaveable { mutableStateOf(false) }
     var esci by rememberSaveable { mutableStateOf(false) }
     var licenze by rememberSaveable { mutableStateOf(false) }
+    var elimina by rememberSaveable { mutableStateOf(false) }
     val esegui = azione()
     Schermo(onIndietro) {
         Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).statusBarsPadding().padding(top = 76.dp)) {
@@ -52,13 +53,26 @@ fun ProfiloSchermo(utente: Utente, onIndietro: () -> Unit) {
             Spacer(Modifier.height(28.dp))
             Riga("Cambia password", onClick = { password = true })
             Riga("Licenze", "Font Montserrat, SIL Open Font License", onClick = { licenze = true })
-            Riga("Esci", onClick = { esci = true }, filetto = false)
+            Riga("Esci", onClick = { esci = true }, filetto = !utente.isDottore)
+            if (!utente.isDottore) Riga("Elimina account", onClick = { elimina = true }, filetto = false)
             Spacer(Modifier.height(30.dp))
             Testo("EdoDoc ${BuildConfig.VERSION_NAME}", Tipo.Label, colori.inkSecondary, Modifier.padding(horizontal = MargineSchermo))
         }
     }
     if (password) CambioPassword { password = false }
     if (licenze) Licenze { licenze = false }
+    if (elimina) {
+        Conferma("Vuoi eliminare l'account?",
+            "Perderai subito l'accesso all'app e alle fatture: scaricale prima, se ti servono. Entro un mese i tuoi dati anagrafici saranno resi anonimi. Le fatture restano conservate per 10 anni, come richiede la legge.",
+            "Elimina account", pericolosa = true,
+            onConferma = {
+                elimina = false
+                esegui {
+                    Grafo.edo.chiudiAccount()
+                    Grafo.api.logout(Grafo.push.tokenCorrente())
+                }
+            }, onAnnulla = { elimina = false })
+    }
     if (esci) {
         Conferma("Vuoi uscire?", "Dovrai inserire di nuovo la password per entrare.", "Esci", pericolosa = true,
             onConferma = { esci = false; esegui { Grafo.api.logout(Grafo.push.tokenCorrente()) } }, onAnnulla = { esci = false })

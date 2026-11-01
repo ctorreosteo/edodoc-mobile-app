@@ -1,0 +1,3 @@
+app_identifier("it.edodoc.app")
+team_id("D554FGYBR8")
+apple_id(ENV["APPLE_ID"])

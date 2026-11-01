@@ -1,0 +1,47 @@
+name: iOS
+
+# Un tag ios-v1.2.3 va su TestFlight. L'invio in revisione parte solo a mano da Actions.
+on:
+  push:
+    tags: ["ios-v*"]
+  workflow_dispatch:
+    inputs:
+      versione:
+        description: "Versione da inviare in revisione, per esempio 1.0.0"
+        required: true
+
+jobs:
+  rilascio:
+    runs-on: macos-26
+    defaults:
+      run:
+        working-directory: ios
+    env:
+      VERSIONE: ${{ inputs.versione }}
+      APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+      APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+      APP_STORE_CONNECT_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_KEY_BASE64 }}
+      APP_REVIEW_NOME: ${{ secrets.APP_REVIEW_NOME }}
+      APP_REVIEW_COGNOME: ${{ secrets.APP_REVIEW_COGNOME }}
+      APP_REVIEW_TELEFONO: ${{ secrets.APP_REVIEW_TELEFONO }}
+      APP_REVIEW_EMAIL: ${{ secrets.APP_REVIEW_EMAIL }}
+      APP_REVIEW_PASSWORD_PAZIENTE: ${{ secrets.APP_REVIEW_PASSWORD_PAZIENTE }}
+      APP_REVIEW_PASSWORD_DOTTORE: ${{ secrets.APP_REVIEW_PASSWORD_DOTTORE }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          working-directory: ios
+          bundler-cache: true
+      - name: Chiave App Store Connect
+        run: |
+          printf '%s' "$APP_STORE_CONNECT_KEY_BASE64" | base64 --decode > "$RUNNER_TEMP/AuthKey.p8"
+          echo "APP_STORE_CONNECT_KEY_PATH=$RUNNER_TEMP/AuthKey.p8" >> "$GITHUB_ENV"
+      - name: Test
+        run: bundle exec fastlane test
+      - name: TestFlight
+        if: github.event_name == 'push'
+        run: bundle exec fastlane beta versione:"${GITHUB_REF_NAME#ios-v}"
+      - name: Revisione
+        if: github.event_name == 'workflow_dispatch'
+        run: bundle exec fastlane rilascio versione:"$VERSIONE"

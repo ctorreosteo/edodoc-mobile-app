@@ -22,7 +22,7 @@ struct AccessoView: View {
                         .scaledToFit()
                         .frame(height: 30)
                         .foregroundStyle(Tema.ember)
-                        .accessibilityLabel("EdoDoc")
+                        .accessibilityLabel("Dr. Edoardo Bo")
                     Spacer(minLength: 110)
                     Text("Eccoti.")
                         .font(Tipografia.display(52))
@@ -82,6 +82,10 @@ struct AccessoView: View {
                         .frame(maxWidth: .infinity, minHeight: 44)
                         .padding(.top, 8)
                         .accessibilityIdentifier("accesso.primo")
+                    Link("Privacy", destination: Legale.privacy)
+                        .font(Tipografia.nota)
+                        .foregroundStyle(Tema.inkSecondario)
+                        .frame(maxWidth: .infinity, minHeight: 44)
                 }
                 .padding(.horizontal, Tema.margine + 4)
                 .padding(.vertical, 24)
@@ -181,7 +185,7 @@ struct PrimoAccessoView: View {
                             .font(Tipografia.nota)
                             .foregroundStyle(Tema.critico)
                     }
-                    Button("Entra in EdoDoc") { Task { await invia() } }
+                    Button("Entra nell'app") { Task { await invia() } }
                         .buttonStyle(BottoneEmber())
                         .disabled(!valido || inCorso)
                 }
